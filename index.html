@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="it" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRANCHI TIME - Orologi di Lusso</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    .font-heading {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    
+    .font-body {
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .gradient-gold {
+      background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 50%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .watch-card {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .watch-card:hover {
+      transform: translateY(-12px);
+    }
+    
+    .watch-card:hover .watch-image {
+      transform: scale(1.05) rotate(2deg);
+    }
+    
+    .watch-image {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .btn-luxury {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+    
+    .btn-luxury::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-luxury:hover::before {
+      left: 100%;
+    }
+    
+    .parallax-bg {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, #d4af37, #f4e4bc, #d4af37, #f4e4bc, #d4af37);
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #d4af37;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .scroll-indicator {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-10px) translateX(-50%); }
+      60% { transform: translateY(-5px) translateX(-50%); }
+    }
+    
+    .feature-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1);
+    }
+
+    /* Game Styles */
+    #gameCanvas {
+      border: 2px solid #d4af37;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="white" stroke-width="3"/><circle cx="16" cy="16" r="2" fill="white"/><line x1="16" y1="4" x2="16" y2="10" stroke="white" stroke-width="2"/><line x1="16" y1="22" x2="16" y2="28" stroke="white" stroke-width="2"/><line x1="4" y1="16" x2="10" y2="16" stroke="white" stroke-width="2"/><line x1="22" y1="16" x2="28" y2="16" stroke="white" stroke-width="2"/></svg>') 16 16, crosshair;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .game-button {
+      transition: all 0.3s ease;
+    }
+
+    .game-button:hover {
+      transform: scale(1.05);
+    }
+
+    .game-button:active {
+      transform: scale(0.95);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #0a0a0a;"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-blur-md" style="background: rgba(10,10,10,0.9); border-bottom: 1px solid rgba(212,175,55,0.1);">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <svg class="w-10 h-10" viewbox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="23" stroke="#d4af37" stroke-width="2" /> <circle cx="25" cy="25" r="18" stroke="#d4af37" stroke-width="1" opacity="0.5" /> <line x1="25" y1="25" x2="25" y2="12" stroke="#d4af37" stroke-width="2" stroke-linecap="round" /> <line x1="25" y1="25" x2="35" y2="25" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" /> <circle cx="25" cy="25" r="2" fill="#d4af37" />
+      </svg><span id="nav-brand" class="font-heading text-2xl font-semibold tracking-[0.3em]" style="color: #d4af37;">FRANCHI TIME</span>
+     </div>
+     <div class="hidden md:flex items-center gap-10"><a href="#collezione" class="nav-link text-sm tracking-widest uppercase" style="color: #e8e8e8;">Collezione</a> <a href="#gioco" class="nav-link text-sm tracking-widest uppercase" style="color: #e8e8e8;">Gioco</a> <a href="#craftsmanship" class="nav-link text-sm tracking-widest uppercase" style="color: #e8e8e8;">Artigianalità</a> <a href="#contatti" class="nav-link text-sm tracking-widest uppercase" style="color: #e8e8e8;">Contatti</a>
+     </div><button class="md:hidden" style="color: #d4af37;">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg></button>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="relative h-full min-h-[700px] flex items-center justify-center overflow-hidden"><!-- Background Pattern -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%);"></div>
+    <div class="absolute inset-0" style="background-image: 
+        linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
+        background-size: 50px 50px;"></div>
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+     <p class="text-sm tracking-[0.5em] uppercase mb-6 opacity-80" style="color: #d4af37;">Esclusività senza tempo</p>
+     <h1 id="hero-title" class="font-heading text-5xl md:text-7xl lg:text-8xl font-light mb-6 leading-tight" style="color: #f5f5f5;">L'Arte del<br><span class="shimmer font-semibold">Tempo Perfetto</span></h1>
+     <p id="hero-subtitle" class="text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed" style="color: #a0a0a0;">Orologi di manifattura svizzera per chi apprezza l'eccellenza. Ogni pezzo racconta una storia di precisione e passione.</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center"><button id="cta-primary" class="btn-luxury px-10 py-4 text-sm tracking-widest uppercase font-medium" style="background: linear-gradient(135deg, #d4af37 0%, #c5a028 100%); color: #0a0a0a;"> Scopri la Collezione </button> <button class="btn-luxury px-10 py-4 text-sm tracking-widest uppercase font-medium border" style="border-color: #d4af37; color: #d4af37; background: transparent;"> Prenota una Visita </button>
+     </div>
+    </div><!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 scroll-indicator" style="transform: translateX(-50%);">
+     <svg class="w-6 h-10" viewbox="0 0 24 40" fill="none"><rect x="1" y="1" width="22" height="38" rx="11" stroke="#d4af37" stroke-width="1.5" /> <circle cx="12" cy="12" r="3" fill="#d4af37">
+       <animate attributename="cy" values="12;24;12" dur="2s" repeatcount="indefinite" />
+      </circle>
+     </svg>
+    </div>
+   </section><!-- Featured Watch -->
+   <section class="py-24 px-6 relative">
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+     <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="float-animation">
+       <svg class="w-full max-w-md mx-auto" viewbox="0 0 300 300" fill="none"><!-- Watch Case --> <circle cx="150" cy="150" r="120" fill="url(#caseGradient)" stroke="#d4af37" stroke-width="3" /> <circle cx="150" cy="150" r="110" fill="#1a1a1a" /> <circle cx="150" cy="150" r="105" stroke="#d4af37" stroke-width="0.5" opacity="0.3" /> <!-- Hour Markers --> <g stroke="#d4af37" stroke-width="2">
+         <line x1="150" y1="55" x2="150" y2="65" />
+         <line x1="150" y1="235" x2="150" y2="245" />
+         <line x1="55" y1="150" x2="65" y2="150" />
+         <line x1="235" y1="150" x2="245" y2="150" />
+        </g> <g fill="#d4af37" opacity="0.6">
+         <circle cx="150" cy="75" r="2" />
+         <circle cx="150" cy="225" r="2" />
+         <circle cx="75" cy="150" r="2" />
+         <circle cx="225" cy="150" r="2" />
+         <circle cx="193" cy="75" r="1.5" />
+         <circle cx="107" cy="75" r="1.5" />
+         <circle cx="193" cy="225" r="1.5" />
+         <circle cx="107" cy="225" r="1.5" />
+         <circle cx="225" cy="107" r="1.5" />
+         <circle cx="225" cy="193" r="1.5" />
+         <circle cx="75" cy="107" r="1.5" />
+         <circle cx="75" cy="193" r="1.5" />
+        </g> <!-- Hands --> <line x1="150" y1="150" x2="150" y2="80" stroke="#d4af37" stroke-width="3" stroke-linecap="round" /> <line x1="150" y1="150" x2="195" y2="150" stroke="#f5f5f5" stroke-width="2" stroke-linecap="round" /> <line x1="150" y1="150" x2="150" y2="100" stroke="#c41e3a" stroke-width="1" stroke-linecap="round" /> <!-- Center --> <circle cx="150" cy="150" r="6" fill="#d4af37" /> <circle cx="150" cy="150" r="3" fill="#0a0a0a" /> <!-- Crown --> <rect x="268" y="142" width="15" height="16" rx="2" fill="url(#crownGradient)" /> <line x1="271" y1="146" x2="271" y2="154" stroke="#8b7025" stroke-width="0.5" /> <line x1="274" y1="146" x2="274" y2="154" stroke="#8b7025" stroke-width="0.5" /> <line x1="277" y1="146" x2="277" y2="154" stroke="#8b7025" stroke-width="0.5" /> <line x1="280" y1="146" x2="280" y2="154" stroke="#8b7025" stroke-width="0.5" /> <!-- Sub-dial --> <circle cx="150" cy="195" r="20" stroke="#d4af37" stroke-width="0.5" fill="none" /> <line x1="150" y1="195" x2="150" y2="180" stroke="#d4af37" stroke-width="1" stroke-linecap="round" /> <defs>
+         <lineargradient id="caseGradient" x1="30" y1="30" x2="270" y2="270">
+          <stop offset="0%" stop-color="#2a2a2a" />
+          <stop offset="50%" stop-color="#1a1a1a" />
+          <stop offset="100%" stop-color="#2a2a2a" />
+         </lineargradient>
+         <lineargradient id="crownGradient" x1="268" y1="142" x2="283" y2="158">
+          <stop offset="0%" stop-color="#d4af37" />
+          <stop offset="50%" stop-color="#f4e4bc" />
+          <stop offset="100%" stop-color="#d4af37" />
+         </lineargradient>
+        </defs>
+       </svg>
+      </div>
+      <div>
+       <p class="text-sm tracking-[0.4em] uppercase mb-4" style="color: #d4af37;">Nuovo Arrivo 2024</p>
+       <h2 class="font-heading text-4xl md:text-5xl font-light mb-6" style="color: #f5f5f5;">Chronograph<br><span style="color: #d4af37;">Midnight Gold</span></h2>
+       <p class="text-base leading-relaxed mb-8" style="color: #a0a0a0;">Un capolavoro di ingegneria e design. Movimento automatico con riserva di carica di 72 ore, cassa in acciaio 316L con finitura PVD oro rosa, vetro zaffiro antiriflesso. Impermeabile fino a 100 metri.</p>
+       <div class="grid grid-cols-2 gap-6 mb-10">
+        <div class="p-4" style="border-left: 2px solid #d4af37;">
+         <p class="text-2xl font-heading font-semibold" style="color: #d4af37;">42mm</p>
+         <p class="text-xs uppercase tracking-wider" style="color: #707070;">Diametro Cassa</p>
+        </div>
+        <div class="p-4" style="border-left: 2px solid #d4af37;">
+         <p class="text-2xl font-heading font-semibold" style="color: #d4af37;">72h</p>
+         <p class="text-xs uppercase tracking-wider" style="color: #707070;">Riserva di Carica</p>
+        </div>
+        <div class="p-4" style="border-left: 2px solid #d4af37;">
+         <p class="text-2xl font-heading font-semibold" style="color: #d4af37;">Swiss</p>
+         <p class="text-xs uppercase tracking-wider" style="color: #707070;">Movimento</p>
+        </div>
+        <div class="p-4" style="border-left: 2px solid #d4af37;">
+         <p class="text-2xl font-heading font-semibold" style="color: #d4af37;">100m</p>
+         <p class="text-xs uppercase tracking-wider" style="color: #707070;">Impermeabilità</p>
+        </div>
+       </div>
+       <p class="font-heading text-3xl mb-6" style="color: #f5f5f5;">€ 12.500</p><button class="btn-luxury px-8 py-3 text-sm tracking-widest uppercase" style="background: #d4af37; color: #0a0a0a;"> Richiedi Informazioni </button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Collection Section -->
+   <section id="collezione" class="py-24 px-6" style="background: #0f0f0f;">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.5em] uppercase mb-4" style="color: #d4af37;">Le Nostre Creazioni</p>
+      <h2 id="collection-title" class="font-heading text-4xl md:text-5xl font-light" style="color: #f5f5f5;">Collezione Esclusiva</h2>
+     </div>
+     <div class="grid md:grid-cols-3 gap-8"><!-- Watch 1 -->
+      <div class="watch-card group cursor-pointer">
+       <div class="relative overflow-hidden mb-6" style="background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(212,175,55,0.1);">
+        <div class="absolute top-4 right-4 px-3 py-1 text-xs tracking-wider z-10" style="background: #d4af37; color: #0a0a0a;">
+         BESTSELLER
+        </div><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&amp;q=80" alt="Heritage Classic luxury watch" loading="lazy" class="watch-image w-full h-64 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="text-center">
+        <h3 class="font-heading text-xl mb-2" style="color: #f5f5f5;">Heritage Classic</h3>
+        <p class="text-sm mb-3" style="color: #707070;">Automatico • 40mm • Acciaio</p>
+        <p class="font-heading text-xl" style="color: #d4af37;">€ 8.900</p>
+       </div>
+      </div><!-- Watch 2 -->
+      <div class="watch-card group cursor-pointer">
+       <div class="relative overflow-hidden mb-6" style="background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(212,175,55,0.1);">
+        <div class="absolute top-4 right-4 px-3 py-1 text-xs tracking-wider z-10" style="background: transparent; border: 1px solid #d4af37; color: #d4af37;">
+         NOVITÀ
+        </div><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800&amp;q=80" alt="Digital Avant-Garde smartwatch" loading="lazy" class="watch-image w-full h-64 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="text-center">
+        <h3 class="font-heading text-xl mb-2" style="color: #f5f5f5;">Digital Avant-Garde</h3>
+        <p class="text-sm mb-3" style="color: #707070;">Smart • 44mm • Titanio</p>
+        <p class="font-heading text-xl" style="color: #d4af37;">€ 15.500</p>
+       </div>
+      </div><!-- Watch 3 -->
+      <div class="watch-card group cursor-pointer">
+       <div class="relative overflow-hidden mb-6" style="background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(212,175,55,0.1);"><img src="https://images.unsplash.com/photo-1587836374828-4dbafa94cf0e?w=800&amp;q=80" alt="Rosé Chronograph luxury watch" loading="lazy" class="watch-image w-full h-64 object-cover" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="text-center">
+        <h3 class="font-heading text-xl mb-2" style="color: #f5f5f5;">Rosé Chronograph</h3>
+        <p class="text-sm mb-3" style="color: #707070;">Cronografo • 42mm • Oro Rosa</p>
+        <p class="font-heading text-xl" style="color: #d4af37;">€ 24.000</p>
+       </div>
+      </div>
+     </div>
+     <div class="text-center mt-12"><button class="btn-luxury px-10 py-4 text-sm tracking-widest uppercase border" style="border-color: #d4af37; color: #d4af37; background: transparent;"> Vedi Tutta la Collezione </button>
+     </div>
+    </div>
+   </section><!-- Game Section -->
+   <section id="gioco" class="py-24 px-6 relative">
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 50%, #0f0f0f 100%);"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+     <div class="text-center mb-12">
+      <p class="text-sm tracking-[0.5em] uppercase mb-4" style="color: #d4af37;">Sfida la Precisione</p>
+      <h2 class="font-heading text-4xl md:text-5xl font-light mb-6" style="color: #f5f5f5;">Timing Challenge</h2>
+      <p class="text-base max-w-2xl mx-auto leading-relaxed" style="color: #a0a0a0;">Come un orologiaio di precisione, la tua sfida è colpire i bersagli al momento giusto. Ogni secondo conta!</p>
+     </div>
+     <div class="p-8 rounded-lg" style="background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%); border: 1px solid rgba(212,175,55,0.2);"><!-- Game Stats -->
+      <div class="flex justify-between items-center mb-6 flex-wrap gap-4">
+       <div class="text-center">
+        <p class="text-sm uppercase tracking-wider mb-1" style="color: #707070;">Punteggio</p>
+        <p id="score" class="font-heading text-3xl font-semibold" style="color: #d4af37;">0</p>
+       </div>
+       <div class="text-center">
+        <p class="text-sm uppercase tracking-wider mb-1" style="color: #707070;">Tempo</p>
+        <p id="timer" class="font-heading text-3xl font-semibold" style="color: #f5f5f5;">30s</p>
+       </div>
+       <div class="text-center">
+        <p class="text-sm uppercase tracking-wider mb-1" style="color: #707070;">Record</p>
+        <p id="highScore" class="font-heading text-3xl font-semibold" style="color: #d4af37;">0</p>
+       </div>
+      </div><!-- Canvas -->
+      <canvas id="gameCanvas" width="800" height="500"></canvas><!-- Game Controls -->
+      <div class="flex justify-center gap-4 mt-6 flex-wrap"><button id="startBtn" class="game-button btn-luxury px-8 py-3 text-sm tracking-widest uppercase" style="background: #d4af37; color: #0a0a0a;"> Inizia Gioco </button> <button id="pauseBtn" class="game-button btn-luxury px-8 py-3 text-sm tracking-widest uppercase border" style="border-color: #d4af37; color: #d4af37; background: transparent; display: none;"> Pausa </button> <button id="resetBtn" class="game-button btn-luxury px-8 py-3 text-sm tracking-widest uppercase border" style="border-color: #707070; color: #707070; background: transparent;"> Reset </button>
+      </div><!-- Instructions -->
+      <div class="mt-8 p-4 rounded" style="background: rgba(212,175,55,0.05); border-left: 3px solid #d4af37;">
+       <p class="text-sm" style="color: #a0a0a0;"><strong style="color: #d4af37;">Come giocare:</strong> Clicca sui cerchi dorati prima che scompaiano. Più veloce sei, più punti ottieni!</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Features Section -->
+   <section id="craftsmanship" class="py-24 px-6" style="background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.5em] uppercase mb-4" style="color: #d4af37;">Perché Sceglierci</p>
+      <h2 class="font-heading text-4xl md:text-5xl font-light" style="color: #f5f5f5;">Eccellenza Artigianale</h2>
+     </div>
+     <div class="grid md:grid-cols-4 gap-8">
+      <div class="feature-card text-center p-6">
+       <div class="feature-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);">
+        <svg class="w-8 h-8" viewbox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+        </svg>
+       </div>
+       <h3 class="font-heading text-lg mb-3" style="color: #f5f5f5;">Swiss Made</h3>
+       <p class="text-sm leading-relaxed" style="color: #707070;">Movimenti certificati di manifattura svizzera con oltre 200 anni di tradizione orologiera.</p>
+      </div>
+      <div class="feature-card text-center p-6">
+       <div class="feature-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);">
+        <svg class="w-8 h-8" viewbox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" /> <path d="M12 6V12L16 14" />
+        </svg>
+       </div>
+       <h3 class="font-heading text-lg mb-3" style="color: #f5f5f5;">Garanzia 5 Anni</h3>
+       <p class="text-sm leading-relaxed" style="color: #707070;">Copertura internazionale completa con servizio di assistenza dedicato 24/7.</p>
+      </div>
+      <div class="feature-card text-center p-6">
+       <div class="feature-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);">
+        <svg class="w-8 h-8" viewbox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M20 7L12 3L4 7M20 7V17L12 21M20 7L12 11M12 21L4 17V7M12 21V11M4 7L12 11" />
+        </svg>
+       </div>
+       <h3 class="font-heading text-lg mb-3" style="color: #f5f5f5;">Edizione Limitata</h3>
+       <p class="text-sm leading-relaxed" style="color: #707070;">Ogni collezione è prodotta in tiratura limitata per garantire esclusività.</p>
+      </div>
+      <div class="feature-card text-center p-6">
+       <div class="feature-icon w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);">
+        <svg class="w-8 h-8" viewbox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5"><path d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z" /> <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" />
+        </svg>
+       </div>
+       <h3 class="font-heading text-lg mb-3" style="color: #f5f5f5;">Certificazione</h3>
+       <p class="text-sm leading-relaxed" style="color: #707070;">Ogni orologio include certificato di autenticità e origine dei materiali.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Newsletter Section -->
+   <section class="py-20 px-6 relative overflow-hidden">
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 50%, rgba(212,175,55,0.05) 100%);"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+     <h2 class="font-heading text-3xl md:text-4xl font-light mb-4" style="color: #f5f5f5;">Resta Aggiornato</h2>
+     <p class="mb-8" style="color: #a0a0a0;">Iscriviti per ricevere anteprime esclusive e inviti a eventi privati.</p>
+     <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Iscritto ✓'; this.querySelector('input').value = '';"><label for="newsletter-email" class="sr-only">Indirizzo Email</label> <input type="email" id="newsletter-email" placeholder="La tua email" class="flex-1 px-6 py-4 text-sm focus:outline-none" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); color: #f5f5f5;" required> <button type="submit" class="btn-luxury px-8 py-4 text-sm tracking-widest uppercase whitespace-nowrap" style="background: #d4af37; color: #0a0a0a;"> Iscriviti </button>
+     </form>
+    </div>
+   </section><!-- Footer -->
+   <footer id="contatti" class="py-16 px-6" style="background: #050505; border-top: 1px solid rgba(212,175,55,0.1);">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div>
+       <div class="flex items-center gap-3 mb-6">
+        <svg class="w-8 h-8" viewbox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="23" stroke="#d4af37" stroke-width="2" /> <line x1="25" y1="25" x2="25" y2="12" stroke="#d4af37" stroke-width="2" stroke-linecap="round" /> <line x1="25" y1="25" x2="35" y2="25" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" /> <circle cx="25" cy="25" r="2" fill="#d4af37" />
+        </svg><span id="footer-brand" class="font-heading text-xl font-semibold tracking-[0.3em]" style="color: #d4af37;">FRANCHI TIME</span>
+       </div>
+       <p class="text-sm leading-relaxed" style="color: #707070;">L'eccellenza dell'orologeria svizzera dal 1892. Tradizione e innovazione per chi non si accontenta.</p>
+      </div>
+      <div>
+       <h4 class="font-heading text-sm uppercase tracking-widest mb-6" style="color: #f5f5f5;">Collezioni</h4>
+       <nav class="flex flex-col gap-3" aria-label="Collezioni"><a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Heritage</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Chronograph</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Digital</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Limited Edition</a>
+       </nav>
+      </div>
+      <div>
+       <h4 class="font-heading text-sm uppercase tracking-widest mb-6" style="color: #f5f5f5;">Assistenza</h4>
+       <nav class="flex flex-col gap-3" aria-label="Assistenza"><a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Trova Boutique</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Servizio Clienti</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">Garanzia</a> <a href="#" class="text-sm hover:text-[#d4af37] transition-colors" style="color: #707070;">FAQ</a>
+       </nav>
+      </div>
+      <div>
+       <h4 class="font-heading text-sm uppercase tracking-widest mb-6" style="color: #f5f5f5;">Contatti</h4>
+       <div class="flex flex-col gap-3 text-sm" style="color: #707070;">
+        <p>Via Montenapoleone 8<br>
+         20121 Milano, Italia</p>
+        <p>+39 02 1234 5678</p>
+        <p>concierge@kronos.com</p>
+       </div>
+       <div class="flex gap-4 mt-6"><a href="#" class="w-10 h-10 flex items-center justify-center rounded-full transition-colors" style="border: 1px solid rgba(212,175,55,0.3);" aria-label="Instagram">
+         <svg class="w-5 h-5" fill="#d4af37" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+         </svg></a> <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full transition-colors" style="border: 1px solid rgba(212,175,55,0.3);" aria-label="LinkedIn">
+         <svg class="w-5 h-5" fill="#d4af37" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+         </svg></a> <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full transition-colors" style="border: 1px solid rgba(212,175,55,0.3);" aria-label="YouTube">
+         <svg class="w-5 h-5" fill="#d4af37" viewbox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+         </svg></a>
+       </div>
+      </div>
+     </div>
+     <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style="border-top: 1px solid rgba(212,175,55,0.1);">
+      <p id="footer-copyright" class="text-xs" style="color: #505050;">© 2024 FRANCHI TIME. Tutti i diritti riservati. Swiss Made.</p>
+      <nav class="flex gap-6" aria-label="Legal"><a href="#" class="text-xs hover:text-[#d4af37] transition-colors" style="color: #505050;">Privacy Policy</a> <a href="#" class="text-xs hover:text-[#d4af37] transition-colors" style="color: #505050;">Termini e Condizioni</a> <a href="#" class="text-xs hover:text-[#d4af37] transition-colors" style="color: #505050;">Cookie Policy</a>
+      </nav>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      brand_name: 'FRANCHI TIME',
+      hero_title: "L'Arte del Tempo Perfetto",
+      hero_subtitle: "Orologi di manifattura svizzera per chi apprezza l'eccellenza. Ogni pezzo racconta una storia di precisione e passione.",
+      cta_button: 'Scopri la Collezione',
+      collection_title: 'Collezione Esclusiva',
+      footer_text: '© 2024 FRANCHI TIME. Tutti i diritti riservati. Swiss Made.',
+      background_color: '#0a0a0a',
+      accent_color: '#d4af37',
+      text_color: '#f5f5f5',
+      secondary_text_color: '#a0a0a0',
+      surface_color: '#1a1a1a',
+      font_family: 'Montserrat',
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      // Brand name
+      const navBrand = document.getElementById('nav-brand');
+      const footerBrand = document.getElementById('footer-brand');
+      if (navBrand) navBrand.textContent = config.brand_name || defaultConfig.brand_name;
+      if (footerBrand) footerBrand.textContent = config.brand_name || defaultConfig.brand_name;
+
+      // Hero section
+      const heroTitle = document.getElementById('hero-title');
+      if (heroTitle) {
+        const titleText = config.hero_title || defaultConfig.hero_title;
+        const parts = titleText.split(' ');
+        if (parts.length > 2) {
+          heroTitle.innerHTML = `${parts.slice(0, 2).join(' ')}<br><span class="shimmer font-semibold">${parts.slice(2).join(' ')}</span>`;
+        } else {
+          heroTitle.innerHTML = `<span class="shimmer font-semibold">${titleText}</span>`;
+        }
+      }
+
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+
+      const ctaPrimary = document.getElementById('cta-primary');
+      if (ctaPrimary) ctaPrimary.textContent = config.cta_button || defaultConfig.cta_button;
+
+      // Collection
+      const collectionTitle = document.getElementById('collection-title');
+      if (collectionTitle) collectionTitle.textContent = config.collection_title || defaultConfig.collection_title;
+
+      // Footer
+      const footerCopyright = document.getElementById('footer-copyright');
+      if (footerCopyright) footerCopyright.textContent = config.footer_text || defaultConfig.footer_text;
+
+      // Colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const secondaryTextColor = config.secondary_text_color || defaultConfig.secondary_text_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+
+      document.getElementById('app-wrapper').style.backgroundColor = bgColor;
+      
+      // Update accent colors
+      document.querySelectorAll('[style*="color: #d4af37"]').forEach(el => {
+        el.style.color = accentColor;
+      });
+      document.querySelectorAll('[style*="background: #d4af37"]').forEach(el => {
+        el.style.background = accentColor;
+      });
+
+      // Font
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const fontSize = config.font_size || defaultConfig.font_size;
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+      document.body.style.fontSize = `${fontSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+          },
+          {
+            get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
+            set: (value) => { config.secondary_text_color = value; window.elementSdk.setConfig({ secondary_text_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['brand_name', config.brand_name || defaultConfig.brand_name],
+        ['hero_title', config.hero_title || defaultConfig.hero_title],
+        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+        ['cta_button', config.cta_button || defaultConfig.cta_button],
+        ['collection_title', config.collection_title || defaultConfig.collection_title],
+        ['footer_text', config.footer_text || defaultConfig.footer_text]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ===== GAME LOGIC =====
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const scoreEl = document.getElementById('score');
+    const timerEl = document.getElementById('timer');
+    const highScoreEl = document.getElementById('highScore');
+
+    let score = 0;
+    let timeLeft = 30;
+    let highScore = localStorage.getItem('watchGameHighScore') || 0;
+    let gameRunning = false;
+    let gamePaused = false;
+    let targets = [];
+    let gameInterval;
+    let spawnInterval;
+
+    highScoreEl.textContent = highScore;
+
+    class Target {
+      constructor() {
+        this.radius = 20 + Math.random() * 30;
+        this.x = this.radius + Math.random() * (canvas.width - this.radius * 2);
+        this.y = this.radius + Math.random() * (canvas.height - this.radius * 2);
+        this.lifespan = 2000 + Math.random() * 2000;
+        this.createdAt = Date.now();
+        this.opacity = 1;
+      }
+
+      update() {
+        const age = Date.now() - this.createdAt;
+        if (age > this.lifespan * 0.7) {
+          this.opacity = 1 - (age - this.lifespan * 0.7) / (this.lifespan * 0.3);
+        }
+        return age < this.lifespan;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        
+        // Outer glow
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+        gradient.addColorStop(0, 'rgba(212, 175, 55, 0.8)');
+        gradient.addColorStop(0.7, 'rgba(212, 175, 55, 0.4)');
+        gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+        
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Main circle
+        ctx.fillStyle = '#d4af37';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Inner circle
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.restore();
+      }
+
+      isClicked(mouseX, mouseY) {
+        const distance = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
+        return distance < this.radius;
+      }
+    }
+
+    function drawBackground() {
+      ctx.fillStyle = '#0d0d0d';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Grid pattern
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.05)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvas.width; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let i = 0; i < canvas.height; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+      }
+    }
+
+    function spawnTarget() {
+      if (gameRunning && !gamePaused) {
+        targets.push(new Target());
+      }
+    }
+
+    function updateGame() {
+      if (!gameRunning || gamePaused) return;
+      
+      drawBackground();
+      
+      // Update and draw targets
+      targets = targets.filter(target => {
+        const alive = target.update();
+        if (alive) {
+          target.draw();
+        }
+        return alive;
+      });
+      
+      // Update timer
+      timeLeft -= 1/60;
+      if (timeLeft <= 0) {
+        endGame();
+      }
+      timerEl.textContent = Math.ceil(timeLeft) + 's';
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 30;
+      targets = [];
+      gameRunning = true;
+      gamePaused = false;
+      
+      scoreEl.textContent = score;
+      timerEl.textContent = timeLeft + 's';
+      
+      startBtn.style.display = 'none';
+      pauseBtn.style.display = 'inline-block';
+      
+      gameInterval = setInterval(updateGame, 1000 / 60);
+      spawnInterval = setInterval(spawnTarget, 800);
+    }
+
+    function pauseGame() {
+      gamePaused = !gamePaused;
+      pauseBtn.textContent = gamePaused ? 'Riprendi' : 'Pausa';
+    }
+
+    function endGame() {
+      gameRunning = false;
+      clearInterval(gameInterval);
+      clearInterval(spawnInterval);
+      
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('watchGameHighScore', highScore);
+        highScoreEl.textContent = highScore;
+      }
+      
+      startBtn.style.display = 'inline-block';
+      startBtn.textContent = 'Gioca Ancora';
+      pauseBtn.style.display = 'none';
+      
+      // Game over message
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#d4af37';
+      ctx.font = 'bold 48px "Cormorant Garamond"';
+      ctx.textAlign = 'center';
+      ctx.fillText('Tempo Scaduto!', canvas.width / 2, canvas.height / 2 - 40);
+      ctx.font = '32px "Montserrat"';
+      ctx.fillStyle = '#f5f5f5';
+      ctx.fillText('Punteggio: ' + score, canvas.width / 2, canvas.height / 2 + 20);
+    }
+
+    function resetGame() {
+      gameRunning = false;
+      gamePaused = false;
+      clearInterval(gameInterval);
+      clearInterval(spawnInterval);
+      
+      score = 0;
+      timeLeft = 30;
+      targets = [];
+      
+      scoreEl.textContent = score;
+      timerEl.textContent = timeLeft + 's';
+      
+      startBtn.style.display = 'inline-block';
+      startBtn.textContent = 'Inizia Gioco';
+      pauseBtn.style.display = 'none';
+      
+      drawBackground();
+    }
+
+    canvas.addEventListener('click', (e) => {
+      if (!gameRunning || gamePaused) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      
+      for (let i = targets.length - 1; i >= 0; i--) {
+        if (targets[i].isClicked(mouseX, mouseY)) {
+          score += Math.ceil(10 * targets[i].opacity);
+          scoreEl.textContent = score;
+          targets.splice(i, 1);
+          break;
+        }
+      }
+    });
+
+    startBtn.addEventListener('click', startGame);
+    pauseBtn.addEventListener('click', pauseGame);
+    resetBtn.addEventListener('click', resetGame);
+
+    // Initialize canvas
+    drawBackground();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c62d5dce387ed25',t:'MTc2OTc5NTY3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
